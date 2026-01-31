@@ -3,6 +3,7 @@ package com.example.myapplication.viewmodel
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.repositori.RepositoriBuku
@@ -13,20 +14,25 @@ import com.example.myapplication.room.Buku
 import com.example.myapplication.room.BukuPengarang
 import com.example.myapplication.room.Kategori
 import com.example.myapplication.room.Pengarang
+import com.example.myapplication.view.route.DestinasiEntryBuku
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.firstOrNull
 
 class BukuEntryViewModel(
+    savedStateHandle: SavedStateHandle,
     private val repositoriBuku: RepositoriBuku,
     repositoriKategori: RepositoriKategori,
     repositoriPengarang: RepositoriPengarang,
     private val repositoriBukuPengarang: RepositoriBukuPengarang
 ) : ViewModel() {
 
-    var uiStateBuku by mutableStateOf(UIStateBuku())
+    private val kategoriId: Int = checkNotNull(savedStateHandle[DestinasiEntryBuku.kategoriIdArg])
+
+    var uiStateBuku by mutableStateOf(UIStateBuku(detailBuku = DetailBuku(kategoriId = kategoriId)))
 
     val listKategori: StateFlow<List<Kategori>> = repositoriKategori.getAllKategoriStream()
         .filterNotNull()
@@ -68,14 +74,13 @@ class BukuEntryViewModel(
             val buku = uiStateBuku.detailBuku.toBuku()
             repositoriBuku.insertBuku(buku)
 
-            val lastBuku = repositoriBuku.getAllBukuStream()
-            lastBuku.collect { listBuku ->
-                if (listBuku.isNotEmpty()) {
-                    val bukuId = listBuku.last().id
-                    repositoriBukuPengarang.insertBukuPengarang(
-                        BukuPengarang(bukuId, uiStateBuku.detailBuku.pengarangId)
-                    )
-                }
+            // Get the last inserted book ID
+            val listBuku = repositoriBuku.getAllBukuStream().firstOrNull()
+            if (listBuku != null && listBuku.isNotEmpty()) {
+                val bukuId = listBuku.last().id
+                repositoriBukuPengarang.insertBukuPengarang(
+                    BukuPengarang(bukuId, uiStateBuku.detailBuku.pengarangId)
+                )
             }
         }
     }
