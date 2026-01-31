@@ -1,3 +1,38 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Sistem Manajemen Buku</string>
+    <string name="kategori">Kategori</string>
+    <string name="semua_buku">Semua Buku</string>
+    <string name="pengarang">Pengarang</string>
+    <string name="list_buku">Daftar Buku</string>
+    <string name="entry_buku">Tambah Buku</string>
+    <string name="detail_buku">Detail Buku</string>
+    <string name="edit_buku">Edit Buku</string>
+    <string name="entry_kategori">Tambah Kategori</string>
+    <string name="entry_pengarang">Tambah Pengarang</string>
+
+    <string name="deskripsi_no_kategori">Tidak ada data Kategori. Tap + untuk menambah data</string>
+    <string name="deskripsi_no_buku">Tidak ada data Buku. Tap + untuk menambah data</string>
+    <string name="deskripsi_no_pengarang">Tidak ada data Pengarang. Tap + untuk menambah data</string>
+
+    <string name="nama_kategori">Nama Kategori*</string>
+    <string name="judul_buku">Judul Buku*</string>
+    <string name="tahun_terbit">Tahun Terbit*</string>
+    <string name="nama_pengarang">Nama Pengarang*</string>
+    <string name="status">Status*</string>
+
+    <string name="judul_buku_label">Judul Buku :</string>
+    <string name="tahun_terbit_label">Tahun Terbit :</string>
+    <string name="kategori_label">Kategori :</string>
+    <string name="pengarang_label">Pengarang :</string>
+    <string name="status_label">Status :</string>
+
+    <string name="required_field">* required fields</string>
+    <string name="btn_submit">Submit</string>
+    <string name="back">Back</string>
+    <string name="yes">Ya</string>
+    <string name="no">Tidak</string>
+    <string name="delete">Hapus (Soft Delete)</string>
+    <string name="update">Edit</string>
+    <string name="attention">Perhatian</string>
+    <string name="tanya">Apakah anda yakin menghapus ini?</string>
 </resources>
