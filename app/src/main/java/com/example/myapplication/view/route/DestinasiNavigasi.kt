@@ -1,4 +1,6 @@
 package com.example.myapplication.view.route
 
-class DestinasiNavigasi {
+interface DestinasiNavigasi {
+    val route: String
+    val titleRes: Int
 }
